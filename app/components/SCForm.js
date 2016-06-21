@@ -63,6 +63,7 @@ class SCForm extends Component {
       this.setState({location: data});
     });
     let { schema, options } = scformschema.translate(this.props.formInfo);
+    console.log(schema);
     let initialValues = {};
     for (let prop in schema.properties) {
       if (schema.properties[prop].hasOwnProperty('initialValue')) {
