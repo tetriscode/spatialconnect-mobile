@@ -63,7 +63,6 @@ class SCForm extends Component {
       this.setState({location: data});
     });
     let { schema, options } = scformschema.translate(this.props.formInfo);
-    console.log(schema);
     let initialValues = {};
     for (let prop in schema.properties) {
       if (schema.properties[prop].hasOwnProperty('initialValue')) {
@@ -113,7 +112,7 @@ SCForm.propTypes = {
   formInfo: PropTypes.object.isRequired
 };
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 0,

@@ -98,7 +98,7 @@ StoreList.propTypes = {
   navigator: PropTypes.object.isRequired
 };
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     padding: 0,
