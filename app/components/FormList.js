@@ -1,5 +1,5 @@
 'use strict';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   ListView,
   StyleSheet,
@@ -21,6 +21,10 @@ class FormList extends Component {
 
   selectForm(form) {
     Actions.form({ formInfo: form });
+  }
+
+  componentDidMount() {
+    this.props.actions.loadForms();
   }
 
   renderSeparator(
@@ -68,6 +72,11 @@ class FormList extends Component {
     );
   }
 }
+
+FormList.propTypes = {
+  forms: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+};
 
 const styles = StyleSheet.create({
   mainContainer: {

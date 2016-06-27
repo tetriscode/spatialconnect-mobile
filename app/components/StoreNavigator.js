@@ -12,16 +12,12 @@ import { navStyles } from '../style/style.js';
 
 class StoreNavigator extends Component {
 
-  componentDidMount() {
-    this.props.actions.loadForms();
-  }
-
   render() {
     var el;
     if (this.props.name === 'stores') {
       el = <StoreList stores={this.props.stores} actions={this.props.actions} />;
     } else if (this.props.name === 'store') {
-      el = <SCStore store={this.props.store}/>;
+      el = <SCStore storeInfo={this.props.storeInfo} />;
     } else {
       el = <View />;
     }
@@ -46,7 +42,8 @@ function mapDispatchToProps(dispatch) {
 StoreNavigator.propTypes = {
   name: PropTypes.string.isRequired,
   stores: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  storeInfo: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StoreNavigator);

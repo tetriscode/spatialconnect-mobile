@@ -13,14 +13,10 @@ import { navStyles } from '../style/style.js';
 
 class FormNavigator extends Component {
 
-  componentDidMount() {
-    this.props.actions.loadForms();
-  }
-
   render() {
     var el;
     if (this.props.name === 'forms') {
-      el = <FormList forms={this.props.forms} />;
+      el = <FormList forms={this.props.forms} actions={this.props.actions} />;
     } else if (this.props.name === 'form') {
       el = <SCForm formInfo={this.props.formInfo}/>;
     } else if (this.props.name === 'formSubmitted') {

@@ -13,16 +13,16 @@ class SCStore extends Component {
     return (
       <View style={styles.container}>
         <Text numberOfLines={1}>
-          Name: {this.props.store.name}
+          Name: {this.props.storeInfo.name}
         </Text>
         <Text numberOfLines={1}>
-          Type: {this.props.store.type}
+          Type: {this.props.storeInfo.type}
         </Text>
         <Text numberOfLines={1}>
-          Service: {this.props.store.service}
+          Service: {this.props.storeInfo.service}
         </Text>
         <Text numberOfLines={0}>
-          ID: {this.props.store.storeId}
+          ID: {this.props.storeInfo.storeId}
         </Text>
       </View>
     );
