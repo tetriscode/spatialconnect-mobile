@@ -11,8 +11,9 @@ import {
   StatusBar,
   StyleSheet,
 } from 'react-native';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import * as sc from 'spatialconnect/native';
 import Drawer from './components/Drawer';
@@ -23,19 +24,24 @@ import TestNavigator from './components/TestNavigator';
 import palette from './style/palette';
 import reducer from './reducers';
 
-let store = createStore(reducer);
+const store = createStore(
+  reducer,
+  applyMiddleware(thunk)
+);
 
 class SCMobile extends Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount() {
+
+  componentWillMount() {
     sc.startAllServices();
   }
 
   onLeft() {
     Actions.refresh({key: 'drawer', open: value => !value });
   }
+
   renderLeftButton() {
     return (
       <TouchableOpacity
@@ -45,6 +51,7 @@ class SCMobile extends Component {
       </TouchableOpacity>
     );
   }
+
   render() {
     if (Platform.OS === 'ios') {
       StatusBar.setBarStyle('light-content', true);

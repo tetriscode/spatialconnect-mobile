@@ -36,7 +36,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 TestNavigator.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  tests: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
 //export default TestNavigator;

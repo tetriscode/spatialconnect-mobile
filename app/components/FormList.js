@@ -8,7 +8,6 @@ import {
 import { Actions } from 'react-native-router-flux';
 import FormCell from './FormCell';
 import palette from '../style/palette';
-import { forms } from 'spatialconnect/native';
 
 class FormList extends Component {
   constructor(props) {
@@ -16,28 +15,12 @@ class FormList extends Component {
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
-      loaded: false,
+      })
     };
-  }
-
-  componentDidMount() {
-    forms().subscribe(data => {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(data.forms),
-        loaded: true,
-      });
-    });
   }
 
   selectForm(form) {
     Actions.form({ formInfo: form });
-  }
-
-  renderLoadingView() {
-    return (
-      <View style={styles.mainContainer}></View>
-    );
   }
 
   renderSeparator(
@@ -72,16 +55,14 @@ class FormList extends Component {
   }
 
   render() {
-    if (!this.state.loaded) {
-      return this.renderLoadingView();
-    }
     return (
       <View style={styles.mainContainer}>
         <ListView
-          dataSource={this.state.dataSource}
+          dataSource={this.state.dataSource.cloneWithRows(this.props.forms)}
           renderSeparator={this.renderSeparator.bind(this)}
           renderRow={this.renderRow.bind(this)}
           style={styles.listView}
+          enableEmptySections={true}
         />
       </View>
     );

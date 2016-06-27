@@ -84,10 +84,11 @@ class StoreList extends Component {
     return (
       <View style={styles.mainContainer}>
         <ListView
-          dataSource={this.state.dataSource}
+          dataSource={this.state.dataSource.cloneWithRows(this.props.stores)}
           renderSeparator={this.renderSeparator.bind(this)}
           renderRow={this.renderRow.bind(this)}
           style={styles.listView}
+          enableEmptySections={true}
         />
       </View>
     );
