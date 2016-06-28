@@ -3,7 +3,8 @@ import React, { Component, PropTypes } from 'react';
 import {
   ScrollView,
   StyleSheet,
-  Text
+  Text,
+  Alert
 } from 'react-native';
 import should from 'should';
 import * as sc from 'spatialconnect/native';
@@ -47,6 +48,7 @@ class SCTest extends Component {
   }
 
   componentWillMount() {
+    sc.enableGPS();
     this.it('should get forms',(done) => {
       sc.forms().first().subscribe(data => {
         try {
@@ -80,17 +82,18 @@ class SCTest extends Component {
       });
     });
     this.it('should get lastKnownLocation',(done) => {
-      sc.lastKnownLocation().subscribe(data => {
-        try {
-          data.should.be.a.Object();
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          position.should.be.a.Object();
           done(true);
-        } catch (e) {
-          done(false, e);
-        }
-      });
+        },(error) => {
+        done(false,error);
+      },
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+      );
     });
     this.it('should create spatialFeature',(done) => {
-      let sf = sc.spatialFeature('DEFAULT_STORE', 'baseball_team', {"team":"foo","why":"bar"});
+      let sf = sc.spatialFeature('DEFAULT_STORE', 'baseball_team', {'team':'foo','why':'bar'});
       sc.createFeature(sf.serialize()).first().subscribe((data) => {
         try {
           data.should.be.a.Object();
@@ -106,7 +109,7 @@ class SCTest extends Component {
     this.it('should create geometry',(done) => {
       let gj = {
         geometry: {type: 'Point',coordinates: [30, -70]},
-        properties: {"team":"foo","why":"bar"}
+        properties: {'team':'foo','why':'bar'}
       };
       let g = sc.geometry('DEFAULT_STORE', 'baseball_team', gj);
       sc.createFeature(g.serialize()).first().subscribe((data) => {
@@ -124,12 +127,14 @@ class SCTest extends Component {
   deleteTest(feature) {
     this.it('should delete feature',(done) => {
       sc.deleteFeature(feature.id);
+      done(true);
     });
   }
 
   updateTest(feature) {
     this.it('should update feature',(done) => {
       sc.updateFeature(feature);
+      done(true);
     });
   }
 
