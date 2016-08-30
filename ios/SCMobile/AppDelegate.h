@@ -7,15 +7,15 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <UIKit/UIKit.h>
 #import <SpatialConnect/SpatialConnect.h>
+#import <UIKit/UIKit.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
   SpatialConnect *sc;
 }
 
-@property (nonatomic, strong) UIWindow *window;
+@property(nonatomic, strong) UIWindow *window;
 
-- (SpatialConnect*)spatialConnectSharedInstance;
+- (SpatialConnect *)spatialConnectSharedInstance;
 
 @end
